@@ -45,7 +45,7 @@ UserSchema.methods.generateAuthToken = function () {
     var token = jwt.sign({_id: user._id.toHexString(), access}, 'abc123').toString();
 
     user.tokens = user.tokens.concat([{access, token}]);
-    user.save().then(() => {
+    return user.save().then(() => {
         return token;
     });
 };
